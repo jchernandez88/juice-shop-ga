@@ -53,7 +53,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ vars.AWS_REGISTRY_ALIAS }}/${{ vars.GITHUB_REPOSITORY	 }}:${{ env.DOCKER_TAG }}
+            ${{ env.REGISTRY }}/${{ vars.AWS_REGISTRY_ALIAS }}/${{ env.GITHUB_REF_NAME }}:${{ env.DOCKER_TAG }}
           build-args: |
             VCS_REF=${{ env.VCS_REF }}
             BUILD_DATE=${{ env.BUILD_DATE }}
