@@ -1,7 +1,9 @@
 name: 'Cerrar Issues y PRs sin actividad'
 on:
-  schedule:
-    - cron: '30 1 * * *'
+  workflow_dispatch:
+
+#  schedule:
+#    - cron: '30 1 * * *'
 
 jobs:
   sin-actividad:

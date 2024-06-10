@@ -1,6 +1,7 @@
 name: Automatizar Formateo de archivos con Lint
 run-name: Lint automático
-on: [push]
+on:
+  workflow_dispatch:
 
 jobs:
   lint:

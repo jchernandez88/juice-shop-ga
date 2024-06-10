@@ -8,8 +8,8 @@ on:
         required: true
         default: "AWS"
         options: ["AWS", "GCP", "Azure"]
-  issue_comment:
-    types: [created]
+#  issue_comment:
+#    types: [created]
 jobs:
   docker-aws:
     if: |
