@@ -1,10 +1,11 @@
 name: "Flujo CI-Test"
 run-name: "Flujo CI - Test"
 on:
-  push:
-    branches: [master]
-  pull_request:
-    branches: [master]
+  workflow_dispatch:
+#  push:
+#    branches: [master]
+#  pull_request:
+#    branches: [master]
 env:
   ANGULAR_CLI_VERSION: 13
 jobs:
