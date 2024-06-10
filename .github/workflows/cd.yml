@@ -25,7 +25,7 @@ jobs:
             "ServiceArn": "${{ vars.AWS_APPRUNNER_ARN}}",
             "SourceConfiguration": {
                 "ImageRepository": {
-                    "ImageIdentifier": "${{ vars.AWS_REGISTRY }}/${{ vars.AWS_REGISTRY_ALIAS }}/${{ vars.AWS_REPOSITORY }}:latest",
+                    "ImageIdentifier": "${{ vars.AWS_REGISTRY }}/${{ vars.AWS_REGISTRY_ALIAS }}/${{ vars.AWS_REPOSITORY }}:snapshot",
                     "ImageRepositoryType": "ECR_PUBLIC"
                 }
             }
