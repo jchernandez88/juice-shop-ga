@@ -71,7 +71,46 @@ jobs:
           wait-for-service-stability-seconds: 600
       - name: App Runner URL
         run: echo "App runner URL ${{ steps.deploy-apprunner.outputs.service-url }}" 
-        
+  aws3:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.cloud == 'AWS3'
+    steps:
+      - name: "Configurar tag y etiquetas para ${{ github.ref }}"
+        run: |
+          if [ "$GITHUB_REF" == "refs/heads/main" ]; then
+          echo "DOCKER_TAG=latest" >> $GITHUB_ENV
+          else
+          echo "DOCKER_TAG=${{ github.ref_name }}" >> $GITHUB_ENV
+          fi
+      - name: "Configurar credenciales de AWS"
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef #v2 #v2.0.0
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - name: Crear archivo de configuración para AppRunner
+        id: deploy-apprunner
+        run:  |
+          echo '{
+            "ServiceName": "${{ vars.IMAGE_NAME }}",
+            "AutoDeploymentsEnabled": false,
+            "SourceConfiguration": {
+                "ImageRepository": {
+                    "ImageIdentifier": "${{ vars.AWS_REGISTRY }}/${{ vars.AWS_REGISTRY_ALIAS }}/${{ vars.IMAGE_NAME }}:${{ env.DOCKER_TAG }}",
+                    "ImageRepositoryType": "ECR_PUBLIC"
+                }
+            },
+            "InstanceConfiguration": {
+                "CPU": "0.5 vCPU",
+                "Memory": "0.5 GB"
+            }
+          }' > apprunner.json
+      - name: Deploy app en AWS App Runner
+        run: |
+          aws apprunner update-service \
+            --cli-input-json file://apprunner.json
+      - name: App Runner URL
+        run: echo "App runner URL ${{ steps.deploy-apprunner.outputs.ServiceUrl }}" 
   gcp:
     runs-on: ubuntu-latest
     if: github.event.inputs.cloud == 'GCP'
