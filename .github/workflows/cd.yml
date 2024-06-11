@@ -93,12 +93,12 @@ jobs:
         run:  |
           echo '{
             "ServiceName": "${{ vars.IMAGE_NAME }}",
-            "AutoDeploymentsEnabled": false,
             "SourceConfiguration": {
                 "ImageRepository": {
-                    "ImageIdentifier": "${{ vars.AWS_REGISTRY }}/${{ vars.AWS_REGISTRY_ALIAS }}/${{ vars.IMAGE_NAME }}:${{ env.DOCKER_TAG }}",
+                    "ImageIdentifier": "${{ vars.AWS_REGISTRY }}/${{ vars.AWS_REGISTRY_ALIAS }}/${{ github.repository }}:${{ env.DOCKER_TAG }}",
                     "ImageRepositoryType": "ECR_PUBLIC"
-                }
+                },
+                "AutoDeploymentsEnabled": false
             },
             "InstanceConfiguration": {
                 "CPU": "0.5 vCPU",
@@ -107,7 +107,7 @@ jobs:
           }' > apprunner.json
       - name: Deploy app en AWS App Runner
         run: |
-          aws apprunner update-service \
+          aws apprunner create-service \
             --cli-input-json file://apprunner.json
       - name: App Runner URL
         run: echo "App runner URL ${{ steps.deploy-apprunner.outputs.ServiceUrl }}" 
