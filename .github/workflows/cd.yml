@@ -43,7 +43,7 @@ jobs:
             --cli-input-json file://apprunner.json
   aws2:
     runs-on: ubuntu-latest
-    if: github.event.inputs.cloud == 'AWS'
+    if: github.event.inputs.cloud == 'AWS2'
     steps:
       - name: "Configurar tag y etiquetas para ${{ github.ref }}"
         run: |
