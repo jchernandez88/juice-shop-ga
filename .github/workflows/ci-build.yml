@@ -28,7 +28,7 @@ jobs:
           if [ "$GITHUB_REF" == "refs/heads/main" ]; then
           echo "DOCKER_TAG=latest" >> $GITHUB_ENV
           else
-          echo "DOCKER_TAG=snapshot" >> $GITHUB_ENV
+          echo "DOCKER_TAG=${{ github.sha }}" >> $GITHUB_ENV
           fi
           echo "VCS_REF=`git rev-parse --short HEAD`" >> $GITHUB_ENV
           echo "BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”`" >> $GITHUB_ENV
