@@ -41,8 +41,6 @@ jobs:
         run: |
           aws apprunner update-service \
             --cli-input-json file://apprunner.json
-
-
   aws2:
     runs-on: ubuntu-latest
     if: github.event.inputs.cloud == 'AWS'
@@ -73,8 +71,7 @@ jobs:
           wait-for-service-stability-seconds: 600
       - name: App Runner URL
         run: echo "App runner URL ${{ steps.deploy-apprunner.outputs.service-url }}" 
-      
-      
+        
   gcp:
     runs-on: ubuntu-latest
     if: github.event.inputs.cloud == 'GCP'
