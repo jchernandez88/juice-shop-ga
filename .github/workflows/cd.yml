@@ -63,7 +63,7 @@ jobs:
         uses: awslabs/amazon-app-runner-deploy@main
         with:
           service: app-runner-git-deploy-service
-          image: "${{ vars.AWS_REGISTRY }}/${{ vars.AWS_REGISTRY_ALIAS }}/${{ github.repository }}:${{ env.DOCKER_TAG }}",
+          image: "${{ vars.AWS_REGISTRY }}/${{ vars.AWS_REGISTRY_ALIAS }}/${{ github.repository }}:${{ env.DOCKER_TAG }}"
           #access-role-arn: ${{ secrets.ROLE_ARN }}
           region: ${{ secrets.AWS_REGION }}
           cpu : 0.25
