@@ -64,7 +64,6 @@ jobs:
         with:
           service: app-runner-git-deploy-service
           image: "${{ vars.AWS_REGISTRY }}/${{ vars.AWS_REGISTRY_ALIAS }}/${{ github.repository }}:${{ env.DOCKER_TAG }}"
-          access-role-arn: ${{ secrets.AWS_ARN }}
           region: ${{ secrets.AWS_REGION }}
           cpu : 0.25
           memory : 0.5
