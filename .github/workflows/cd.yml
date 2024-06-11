@@ -13,6 +13,13 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.inputs.cloud == 'AWS'
     steps:
+      - name: "Configurar tag y etiquetas para ${{ github.ref }}"
+        run: |
+          if [ "$GITHUB_REF" == "refs/heads/main" ]; then
+          echo "DOCKER_TAG=latest" >> $GITHUB_ENV
+          else
+          echo "DOCKER_TAG=snapshot" >> $GITHUB_ENV
+          fi
       - name: "Configurar credenciales de AWS"
         uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef #v2 #v2.0.0
         with:
@@ -22,10 +29,10 @@ jobs:
       - name: Crear archivo de configuración para AppRunner
         run:  |
           echo '{
-            "ServiceArn": "${{ vars.AWS_APPRUNNER_ARN}}",
+            "ServiceArn": "${{ secrets.AWS_APPRUNNER_ARN}}",
             "SourceConfiguration": {
                 "ImageRepository": {
-                    "ImageIdentifier": "${{ vars.AWS_REGISTRY }}/${{ vars.AWS_REGISTRY_ALIAS }}/${{ vars.AWS_REPOSITORY }}:snapshot",
+                    "ImageIdentifier": "${{ vars.AWS_REGISTRY }}/${{ vars.AWS_REGISTRY_ALIAS }}/${{ github.repository }}:${{ env.DOCKER_TAG }}",
                     "ImageRepositoryType": "ECR_PUBLIC"
                 }
             }
