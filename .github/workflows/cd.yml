@@ -60,7 +60,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ vars.AWS_REGION }}
       - name: Crear archivo de configuración para AppRunner
-        id: deploy-apprunner
         run:  |
           echo '{
             "ServiceName": "${{ vars.IMAGE_NAME }}",
@@ -77,6 +76,7 @@ jobs:
             }
           }' > apprunner.json
       - name: Deploy app en AWS App Runner
+        id: deploy-apprunner
         run: |
           aws apprunner create-service \
             --cli-input-json file://apprunner.json
