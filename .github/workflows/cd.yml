@@ -33,7 +33,7 @@ jobs:
             "ServiceArn": "${{ secrets.AWS_APPRUNNER_ARN}}",
             "SourceConfiguration": {
                 "ImageRepository": {
-                    "ImageIdentifier": "${{ vars.AWS_REGISTRY }}/${{ vars.AWS_REGISTRY_ALIAS }}/${{ github.repository }}:${{ env.DOCKER_TAG }}",
+                    "ImageIdentifier": "${{ vars.AWS_REGISTRY }}/${{ vars.AWS_REGISTRY_ALIAS }}/${{ vars.IMAGE_NAME }}:${{ env.DOCKER_TAG }}",
                     "ImageRepositoryType": "ECR_PUBLIC"
                 }
             }
@@ -66,7 +66,7 @@ jobs:
             "ServiceName": "${{ vars.IMAGE_NAME }}",
             "SourceConfiguration": {
                 "ImageRepository": {
-                    "ImageIdentifier": "${{ vars.AWS_REGISTRY }}/${{ vars.AWS_REGISTRY_ALIAS }}/${{ github.repository }}:${{ env.DOCKER_TAG }}",
+                    "ImageIdentifier": "${{ vars.AWS_REGISTRY }}/${{ vars.AWS_REGISTRY_ALIAS }}/${{ vars.IMAGE_NAME }}:${{ env.DOCKER_TAG }}",
                     "ImageRepositoryType": "ECR_PUBLIC"
                 },
                 "AutoDeploymentsEnabled": false
