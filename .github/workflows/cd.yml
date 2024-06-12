@@ -101,8 +101,8 @@ jobs:
                 "AutoDeploymentsEnabled": false
             },
             "InstanceConfiguration": {
-                "CPU": "0.5 vCPU",
-                "Memory": "0.5 GB"
+               "Cpu": "0.5 vCPU",
+               "Memory": "0.5 GB"
             }
           }' > apprunner.json
       - name: Deploy app en AWS App Runner
