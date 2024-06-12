@@ -81,7 +81,7 @@ jobs:
           aws apprunner create-service \
             --cli-input-json file://apprunner.json
       - name: App Runner URL
-        run: echo "App runner URL ${{ steps.deploy-apprunner.outputs.ServiceUrl }}" 
+        run: echo "App runner URL ${{ steps.deploy-apprunner.outputs.Service.ServiceUrl }}" 
   gcp:
     runs-on: ubuntu-latest
     if: github.event.inputs.cloud == 'GCP'
