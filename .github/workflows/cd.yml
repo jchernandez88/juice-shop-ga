@@ -101,7 +101,7 @@ jobs:
                 "AutoDeploymentsEnabled": false
             },
             "InstanceConfiguration": {
-               "Cpu": "0.5 vCPU",
+               "Cpu": "0.25 vCPU",
                "Memory": "0.5 GB"
             }
           }' > apprunner.json
